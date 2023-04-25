@@ -69,7 +69,7 @@ namespace BT_InfluxDB
                     var jsonNodes = await new System.Net.Http.HttpClient().GetStringAsync($"{btAPI}/get_nodes");
                     var nodes = API.Node.FromJson(jsonNodes);
 
-                    //var timestamp = DateTime.UtcNow;
+                    var timestamp = DateTime.UtcNow;
 
                     foreach (var node in nodes)
                     {
@@ -92,7 +92,7 @@ namespace BT_InfluxDB
                             .Field("CurrentPlayers", node.CurrentPlayers)
                             .Field("CurrentServers", node.CurrentServers)
                             .Field("Online", node.Online)
-                            .Timestamp(node.LastOnline, WritePrecision.S);
+                            .Timestamp(timestamp, WritePrecision.Ns);
                         //var point = PointData
                         //    .Measurement("nodes")
                         //    .Tag("endpoint", node.Endpoint)
