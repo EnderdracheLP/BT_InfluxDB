@@ -26,6 +26,7 @@ namespace BT_InfluxDB
                 Console.Error.WriteLine("Missing required environment variables. Please set BT_INFLUX_TOKEN, BT_INFLUX_BUCKET, BT_INFLUX_ORG, BT_INFLUX_ENDPOINT and BT_API.");
                 Environment.Exit(10);
             }
+            Console.WriteLine("Start BT_InfluxDB");
 
 
             //const string token = "AELaMaklPB1yX2bcEdMQH_JzltvghJd3LnqoU-2hC8Da0a1Z1LSjMLe_Byxef1E9Ij3lq9z9o_UwVVglOZOh_A==";
