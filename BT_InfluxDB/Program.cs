@@ -82,9 +82,8 @@ namespace BT_InfluxDB
                         Console.WriteLine(node.CurrentServers);
 
 #endif
-                    // Write to InfluxDB
-                    foreach (var node in nodes)
-                    {
+                        // Write to InfluxDB
+
                         var point = PointData
                             .Measurement("NodeStats")
                             .Tag("endpoint", node.Endpoint)
@@ -109,140 +108,140 @@ namespace BT_InfluxDB
                         }
                     }
 
-                    List<string>? secrets = null;
-                    try
-                    {
-                        var jsonSecrets = await new HttpClient().GetStringAsync("http://master.beattogether.systems:8989/get_public_server_secrets");
-                        secrets = JsonConvert.DeserializeObject<List<string>>(jsonSecrets);
-                    }
-                    catch (HttpRequestException ex)
-                    {
-                        if (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
-                        {
-                            secrets = null;
-                        }
-                    }
+                    //                    List<string>? secrets = null;
+                    //                    try
+                    //                    {
+                    //                        var jsonSecrets = await new HttpClient().GetStringAsync("$"{btAPI}/get_public_server_secrets");
+                    //                        secrets = JsonConvert.DeserializeObject<List<string>>(jsonSecrets);
+                    //                    }
+                    //                    catch (HttpRequestException ex)
+                    //                    {
+                    //                        if (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    //                        {
+                    //                            secrets = null;
+                    //                        }
+                    //                    }
 
-                    if (secrets == null || secrets.Count == 0)
-                    {
-                        Console.WriteLine("No public servers found.");
-                    }
-                    else
-                    {
-#if DEBUG
-                        foreach (var secret in secrets)
-                        {
-                            Console.WriteLine(secret);
-                        }
-#endif
+                    //                    if (secrets == null || secrets.Count == 0)
+                    //                    {
+                    //                        Console.WriteLine("No public servers found.");
+                    //                    }
+                    //                    else
+                    //                    {
+                    //#if DEBUG
+                    //                        foreach (var secret in secrets)
+                    //                        {
+                    //                            Console.WriteLine(secret);
+                    //                        }
+                    //#endif
 
-//                    List<string>? secrets = null;
-//                    try
-//                    {
-//                        var jsonSecrets = await new HttpClient().GetStringAsync("http://master.beattogether.systems:8989/get_public_server_secrets");
-//                        secrets = JsonConvert.DeserializeObject<List<string>>(jsonSecrets);
-//                    }
-//                    catch (HttpRequestException ex)
-//                    {
-//                        if (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
-//                        {
-//                            secrets = null;
-//                        }
-//                    }
+                    //                    List<string>? secrets = null;
+                    //                    try
+                    //                    {
+                    //                        var jsonSecrets = await new HttpClient().GetStringAsync("$"{btAPI}/get_public_server_secrets");
+                    //                        secrets = JsonConvert.DeserializeObject<List<string>>(jsonSecrets);
+                    //                    }
+                    //                    catch (HttpRequestException ex)
+                    //                    {
+                    //                        if (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    //                        {
+                    //                            secrets = null;
+                    //                        }
+                    //                    }
 
-//                    if (secrets == null || secrets.Count == 0)
-//                    {
-//                        Console.WriteLine("No public servers found.");
-//                    }
-//                    else
-//                    {
-//#if DEBUG
-//                        foreach (var secret in secrets)
-//                        {
-//                            Console.WriteLine(secret);
-//                        }
-//#endif
+                    //                    if (secrets == null || secrets.Count == 0)
+                    //                    {
+                    //                        Console.WriteLine("No public servers found.");
+                    //                    }
+                    //                    else
+                    //                    {
+                    //#if DEBUG
+                    //                        foreach (var secret in secrets)
+                    //                        {
+                    //                            Console.WriteLine(secret);
+                    //                        }
+                    //#endif
 
-//                        foreach (string ServerSecret in secrets)
-//                        {
-//                            var jsonPubServers = await new HttpClient().GetStringAsync($"http://master.beattogether.systems:8989/get_server_infomation_from_secret/{ServerSecret}");
-//                            //var jsonPubServers = @"{""Name"":""BeatTogether Quickplay: All"",""Id"":""ziuMSceapEuNN7wRGQXrZg"",""EndPoint"":""199.195.251.114"",""Secret"":""wEd2K8P4kPQeTl2XMOvZeY"",""Code"":""QN7FG"",""Public"":true,""InGameplay"":false,""beatmap_level_selection_mask"":{""difficulties"":31,""modifiers"":2,""song_packs"":""/////////////////////w""},""gameplay_server_configuration"":{""max_player_count"":5,""discovery_policy"":2,""invite_policy"":2,""gameplay_server_mode"":0,""song_selection_mode"":0,""gameplay_server_control_settings"":0},""Player_count"":1}";
-//                            var lobby = API.Lobby.FromJson(jsonPubServers);
-//                            if (lobby != null)
-//                            {
-//#if DEBUG
-//                                Console.WriteLine(lobby.Name);
-//                                Console.WriteLine(lobby.Id);
-//                                Console.WriteLine(lobby.EndPoint);
-//                                Console.WriteLine(lobby.Secret);
-//                                Console.WriteLine(lobby.Code);
-//                                Console.WriteLine(lobby.Public);
-//                                Console.WriteLine(lobby.InGameplay);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Difficulties);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.energyType);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.noFailOn0Energy);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.instaFail);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.failOnSaberClash);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.enabledObstacleType);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.fastNotes);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.strictAngles);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.disappearingArrows);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.ghostNotes);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.noBombs);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.songSpeed);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.noArrows);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.proMode);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.zenMode);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.smallCubes);
-//                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.SongPacks);
-//                                Console.WriteLine(lobby.GameplayServerConfiguration.MaxPlayerCount);
-//                                Console.WriteLine(lobby.GameplayServerConfiguration.DiscoveryPolicy);
-//                                Console.WriteLine(lobby.GameplayServerConfiguration.InvitePolicy);
-//                                Console.WriteLine(lobby.GameplayServerConfiguration.GameplayServerMode);
-//                                Console.WriteLine(lobby.GameplayServerConfiguration.SongSelectionMode);
-//                                Console.WriteLine(lobby.GameplayServerConfiguration.GameplayServerControlSettings);
-//                                Console.WriteLine(lobby.PlayerCount);
-//                                //break;
-//#endif
-//                                var point = PointData
-//                                    .Measurement("Lobby")
-//                                    .Field("Name", lobby.Name)
-//                                    .Field("Id", lobby.Id)
-//                                    .Tag("EndPoint", lobby.EndPoint)
-//                                    .Field("Secret", lobby.Secret)
-//                                    .Field("Code", lobby.Code)
-//                                    .Field("Public", lobby.Public)
-//                                    .Field("InGameplay", lobby.InGameplay)
-//                                    //.Field("beatmap_level_selection_mask", PointData
-//                                        .Tag("difficulty", lobby.BeatmapLevelSelectionMask.Difficulties.ToString())
-//                                        .Field("energyType", lobby.BeatmapLevelSelectionMask.Modifiers.energyType)
-//                                        .Field("noFailOn0Energy", lobby.BeatmapLevelSelectionMask.Modifiers.noFailOn0Energy)
-//                                        .Field("instaFail", lobby.BeatmapLevelSelectionMask.Modifiers.instaFail)
-//                                        .Field("failOnSaberClash", lobby.BeatmapLevelSelectionMask.Modifiers.failOnSaberClash)
-//                                        .Field("enabledObstacleType", lobby.BeatmapLevelSelectionMask.Modifiers.enabledObstacleType)
-//                                        .Field("fastNotes", lobby.BeatmapLevelSelectionMask.Modifiers.fastNotes)
-//                                        .Field("strictAngles", lobby.BeatmapLevelSelectionMask.Modifiers.strictAngles)
-//                                        .Field("disappearingArrows", lobby.BeatmapLevelSelectionMask.Modifiers.disappearingArrows)
-//                                        .Field("ghostNotes", lobby.BeatmapLevelSelectionMask.Modifiers.ghostNotes)
-//                                        .Field("noBombs", lobby.BeatmapLevelSelectionMask.Modifiers.noBombs)
-//                                        .Field("songSpeed", lobby.BeatmapLevelSelectionMask.Modifiers.songSpeed)
-//                                        .Field("noArrows", lobby.BeatmapLevelSelectionMask.Modifiers.noArrows)
-//                                        .Field("proMode", lobby.BeatmapLevelSelectionMask.Modifiers.proMode)
-//                                        .Field("zenMode", lobby.BeatmapLevelSelectionMask.Modifiers.zenMode)
-//                                        .Field("smallCubes", lobby.BeatmapLevelSelectionMask.Modifiers.smallCubes)
-//                                        .Field("song_packs", lobby.BeatmapLevelSelectionMask.SongPacks)
-//                                    //    .Timestamp(DateTime.UtcNow, WritePrecision.Ns);
-//                                    //)
-//                                    .Field("maxplayercount", lobby.GameplayServerConfiguration.MaxPlayerCount)
-//                                    .Field("discoverypolicy", lobby.GameplayServerConfiguration.DiscoveryPolicy)
-//                                    .Field("invitepolicy", lobby.GameplayServerConfiguration.InvitePolicy)
-//                                    .Field("gameplayservermode", lobby.GameplayServerConfiguration.GameplayServerMode)
-//                                    .Field("songselectionmode", lobby.GameplayServerConfiguration.SongSelectionMode)
-//                                    .Field("gameplayservercontrolsettings", lobby.GameplayServerConfiguration.GameplayServerControlSettings)
-//                                    .Field("playercount", lobby.PlayerCount)
-//                            }
-//                        }
-//                    }
+                    //                        foreach (string ServerSecret in secrets)
+                    //                        {
+                    //                            var jsonPubServers = await new HttpClient().GetStringAsync($"{btAPI}/get_server_infomation_from_secret/{ServerSecret}");
+                    //                            //var jsonPubServers = @"{""Name"":""BeatTogether Quickplay: All"",""Id"":""ziuMSceapEuNN7wRGQXrZg"",""EndPoint"":""199.195.251.114"",""Secret"":""wEd2K8P4kPQeTl2XMOvZeY"",""Code"":""QN7FG"",""Public"":true,""InGameplay"":false,""beatmap_level_selection_mask"":{""difficulties"":31,""modifiers"":2,""song_packs"":""/////////////////////w""},""gameplay_server_configuration"":{""max_player_count"":5,""discovery_policy"":2,""invite_policy"":2,""gameplay_server_mode"":0,""song_selection_mode"":0,""gameplay_server_control_settings"":0},""Player_count"":1}";
+                    //                            var lobby = API.Lobby.FromJson(jsonPubServers);
+                    //                            if (lobby != null)
+                    //                            {
+                    //#if DEBUG
+                    //                                Console.WriteLine(lobby.Name);
+                    //                                Console.WriteLine(lobby.Id);
+                    //                                Console.WriteLine(lobby.EndPoint);
+                    //                                Console.WriteLine(lobby.Secret);
+                    //                                Console.WriteLine(lobby.Code);
+                    //                                Console.WriteLine(lobby.Public);
+                    //                                Console.WriteLine(lobby.InGameplay);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Difficulties);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.energyType);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.noFailOn0Energy);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.instaFail);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.failOnSaberClash);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.enabledObstacleType);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.fastNotes);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.strictAngles);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.disappearingArrows);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.ghostNotes);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.noBombs);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.songSpeed);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.noArrows);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.proMode);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.zenMode);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.Modifiers.smallCubes);
+                    //                                Console.WriteLine(lobby.BeatmapLevelSelectionMask.SongPacks);
+                    //                                Console.WriteLine(lobby.GameplayServerConfiguration.MaxPlayerCount);
+                    //                                Console.WriteLine(lobby.GameplayServerConfiguration.DiscoveryPolicy);
+                    //                                Console.WriteLine(lobby.GameplayServerConfiguration.InvitePolicy);
+                    //                                Console.WriteLine(lobby.GameplayServerConfiguration.GameplayServerMode);
+                    //                                Console.WriteLine(lobby.GameplayServerConfiguration.SongSelectionMode);
+                    //                                Console.WriteLine(lobby.GameplayServerConfiguration.GameplayServerControlSettings);
+                    //                                Console.WriteLine(lobby.PlayerCount);
+                    //                                //break;
+                    //#endif
+                    //                                var point = PointData
+                    //                                    .Measurement("Lobby")
+                    //                                    .Field("Name", lobby.Name)
+                    //                                    .Field("Id", lobby.Id)
+                    //                                    .Tag("EndPoint", lobby.EndPoint)
+                    //                                    .Field("Secret", lobby.Secret)
+                    //                                    .Field("Code", lobby.Code)
+                    //                                    .Field("Public", lobby.Public)
+                    //                                    .Field("InGameplay", lobby.InGameplay)
+                    //                                    //.Field("beatmap_level_selection_mask", PointData
+                    //                                        .Tag("difficulty", lobby.BeatmapLevelSelectionMask.Difficulties.ToString())
+                    //                                        .Field("energyType", lobby.BeatmapLevelSelectionMask.Modifiers.energyType)
+                    //                                        .Field("noFailOn0Energy", lobby.BeatmapLevelSelectionMask.Modifiers.noFailOn0Energy)
+                    //                                        .Field("instaFail", lobby.BeatmapLevelSelectionMask.Modifiers.instaFail)
+                    //                                        .Field("failOnSaberClash", lobby.BeatmapLevelSelectionMask.Modifiers.failOnSaberClash)
+                    //                                        .Field("enabledObstacleType", lobby.BeatmapLevelSelectionMask.Modifiers.enabledObstacleType)
+                    //                                        .Field("fastNotes", lobby.BeatmapLevelSelectionMask.Modifiers.fastNotes)
+                    //                                        .Field("strictAngles", lobby.BeatmapLevelSelectionMask.Modifiers.strictAngles)
+                    //                                        .Field("disappearingArrows", lobby.BeatmapLevelSelectionMask.Modifiers.disappearingArrows)
+                    //                                        .Field("ghostNotes", lobby.BeatmapLevelSelectionMask.Modifiers.ghostNotes)
+                    //                                        .Field("noBombs", lobby.BeatmapLevelSelectionMask.Modifiers.noBombs)
+                    //                                        .Field("songSpeed", lobby.BeatmapLevelSelectionMask.Modifiers.songSpeed)
+                    //                                        .Field("noArrows", lobby.BeatmapLevelSelectionMask.Modifiers.noArrows)
+                    //                                        .Field("proMode", lobby.BeatmapLevelSelectionMask.Modifiers.proMode)
+                    //                                        .Field("zenMode", lobby.BeatmapLevelSelectionMask.Modifiers.zenMode)
+                    //                                        .Field("smallCubes", lobby.BeatmapLevelSelectionMask.Modifiers.smallCubes)
+                    //                                        .Field("song_packs", lobby.BeatmapLevelSelectionMask.SongPacks)
+                    //                                    //    .Timestamp(DateTime.UtcNow, WritePrecision.Ns);
+                    //                                    //)
+                    //                                    .Field("maxplayercount", lobby.GameplayServerConfiguration.MaxPlayerCount)
+                    //                                    .Field("discoverypolicy", lobby.GameplayServerConfiguration.DiscoveryPolicy)
+                    //                                    .Field("invitepolicy", lobby.GameplayServerConfiguration.InvitePolicy)
+                    //                                    .Field("gameplayservermode", lobby.GameplayServerConfiguration.GameplayServerMode)
+                    //                                    .Field("songselectionmode", lobby.GameplayServerConfiguration.SongSelectionMode)
+                    //                                    .Field("gameplayservercontrolsettings", lobby.GameplayServerConfiguration.GameplayServerControlSettings)
+                    //                                    .Field("playercount", lobby.PlayerCount)
+                    //                            }
+                    //                        }
+                    //                    }
                     await Task.Delay(1000);
                 }
                 catch (Exception ex)
