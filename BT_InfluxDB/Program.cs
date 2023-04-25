@@ -91,7 +91,7 @@ namespace BT_InfluxDB
                             .Field("CurrentPlayers", node.CurrentPlayers)
                             .Field("CurrentServers", node.CurrentServers)
                             .Field("Online", node.Online)
-                            .Timestamp(node.LastOnline, WritePrecision.Ns);
+                            .Timestamp(node.LastOnline, WritePrecision.S);
                         //var point = PointData
                         //    .Measurement("nodes")
                         //    .Tag("endpoint", node.Endpoint)
