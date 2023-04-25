@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BT_InfluxDB", "BT_InfluxDB\BT_InfluxDB.csproj", "{9419BE9E-C0D5-421D-8C95-2952112767FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9419BE9E-C0D5-421D-8C95-2952112767FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9419BE9E-C0D5-421D-8C95-2952112767FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9419BE9E-C0D5-421D-8C95-2952112767FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9419BE9E-C0D5-421D-8C95-2952112767FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6119161-28C3-46E3-9FBA-CF9B7C8B5822}
+	EndGlobalSection
+EndGlobal

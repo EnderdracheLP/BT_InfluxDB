@@ -82,7 +82,9 @@ namespace BT_InfluxDB
                         Console.WriteLine(node.CurrentServers);
 
 #endif
-                        // Write to InfluxDB
+                    // Write to InfluxDB
+                    foreach (var node in nodes)
+                    {
                         var point = PointData
                             .Measurement("NodeStats")
                             .Tag("endpoint", node.Endpoint)
@@ -107,7 +109,32 @@ namespace BT_InfluxDB
                         }
                     }
 
+                    List<string>? secrets = null;
+                    try
+                    {
+                        var jsonSecrets = await new HttpClient().GetStringAsync("http://master.beattogether.systems:8989/get_public_server_secrets");
+                        secrets = JsonConvert.DeserializeObject<List<string>>(jsonSecrets);
+                    }
+                    catch (HttpRequestException ex)
+                    {
+                        if (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+                        {
+                            secrets = null;
+                        }
+                    }
 
+                    if (secrets == null || secrets.Count == 0)
+                    {
+                        Console.WriteLine("No public servers found.");
+                    }
+                    else
+                    {
+#if DEBUG
+                        foreach (var secret in secrets)
+                        {
+                            Console.WriteLine(secret);
+                        }
+#endif
 
 //                    List<string>? secrets = null;
 //                    try
